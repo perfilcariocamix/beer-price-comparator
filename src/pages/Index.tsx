@@ -1,17 +1,11 @@
 
 import { useState } from "react";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { BeerEntryForm } from "@/components/BeerEntryForm";
+import { ResultsTable } from "@/components/ResultsTable";
 
 interface BeerEntry {
   id: string;
@@ -34,17 +28,6 @@ const Index = () => {
     { id: "3", volume: "", price: "" },
   ]);
   const [results, setResults] = useState<BeerResult[]>([]);
-
-  const volumeOptions = [
-    { value: "269", label: "269 ml" },
-    { value: "300", label: "300 ml" },
-    { value: "330", label: "330 ml" },
-    { value: "350", label: "350 ml" },
-    { value: "473", label: "473 ml" },
-    { value: "600", label: "600 ml" },
-    { value: "1000", label: "1000 ml" },
-    { value: "custom", label: "Outro" },
-  ];
 
   const handleVolumeChange = (value: string, id: string) => {
     setBeerEntries((prev) =>
@@ -96,7 +79,6 @@ const Index = () => {
   };
 
   const calculateResults = () => {
-    // Filter valid entries
     const validEntries = beerEntries.filter((entry) => {
       const volume =
         entry.volume === "custom"
@@ -115,7 +97,6 @@ const Index = () => {
       return;
     }
 
-    // Calculate price per liter for each valid entry
     const calculations = validEntries.map((entry) => {
       const volume =
         entry.volume === "custom"
@@ -126,10 +107,8 @@ const Index = () => {
       return { id: entry.id, pricePerLiter };
     });
 
-    // Find lowest price
     const lowestPrice = Math.min(...calculations.map((c) => c.pricePerLiter));
 
-    // Set results with highlighted lowest price
     setResults(
       calculations.map((calc) => ({
         ...calc,
@@ -153,71 +132,16 @@ const Index = () => {
         <Card className="p-6 shadow-lg bg-white/80 backdrop-blur-sm">
           <div className="space-y-6">
             {beerEntries.map((entry, index) => (
-              <div
+              <BeerEntryForm
                 key={entry.id}
-                className="grid grid-cols-1 sm:grid-cols-[1fr,1fr,auto] gap-4 items-end relative group"
-              >
-                <div className="space-y-2">
-                  <label
-                    htmlFor={`volume-${entry.id}`}
-                    className="text-sm font-medium text-gray-700"
-                  >
-                    Cerveja {index + 1} (ml)
-                  </label>
-                  <Select
-                    value={entry.volume}
-                    onValueChange={(value) => handleVolumeChange(value, entry.id)}
-                  >
-                    <SelectTrigger id={`volume-${entry.id}`}>
-                      <SelectValue placeholder="Selecione o volume" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {volumeOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  {entry.volume === "custom" && (
-                    <Input
-                      type="number"
-                      placeholder="Volume em ml"
-                      value={entry.customVolume}
-                      onChange={(e) =>
-                        handleCustomVolumeChange(e.target.value, entry.id)
-                      }
-                      className="mt-2"
-                    />
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <label
-                    htmlFor={`price-${entry.id}`}
-                    className="text-sm font-medium text-gray-700"
-                  >
-                    Preço (R$)
-                  </label>
-                  <Input
-                    id={`price-${entry.id}`}
-                    type="number"
-                    step="0.01"
-                    placeholder="0.00"
-                    value={entry.price}
-                    onChange={(e) => handlePriceChange(e.target.value, entry.id)}
-                  />
-                </div>
-                {beerEntries.length > 1 && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="opacity-0 group-hover:opacity-100 transition-opacity"
-                    onClick={() => removeBeer(entry.id)}
-                  >
-                    <Trash2 className="h-4 w-4 text-red-500" />
-                  </Button>
-                )}
-              </div>
+                entry={entry}
+                index={index}
+                showRemoveButton={beerEntries.length > 1}
+                onVolumeChange={handleVolumeChange}
+                onCustomVolumeChange={handleCustomVolumeChange}
+                onPriceChange={handlePriceChange}
+                onRemove={removeBeer}
+              />
             ))}
 
             <div className="flex justify-between items-center pt-4">
@@ -236,44 +160,7 @@ const Index = () => {
           </div>
         </Card>
 
-        {results.length > 0 && (
-          <Card className="p-6 shadow-lg bg-white/80 backdrop-blur-sm">
-            <h2 className="text-xl font-semibold mb-4 text-gray-900">
-              Resultados
-            </h2>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr>
-                    <th className="text-left py-2 px-4 text-gray-600 font-medium">
-                      Cerveja
-                    </th>
-                    <th className="text-right py-2 px-4 text-gray-600 font-medium">
-                      Preço por Litro
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {results.map((result, index) => (
-                    <tr
-                      key={result.id}
-                      className={`transition-colors ${
-                        result.isLowestPrice
-                          ? "bg-green-50 text-green-900"
-                          : "hover:bg-gray-50"
-                      }`}
-                    >
-                      <td className="py-2 px-4">Cerveja {index + 1}</td>
-                      <td className="text-right py-2 px-4">
-                        R$ {result.pricePerLiter.toFixed(2)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </Card>
-        )}
+        <ResultsTable results={results} />
       </div>
     </div>
   );
