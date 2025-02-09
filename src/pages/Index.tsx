@@ -84,10 +84,10 @@ const Index = () => {
   };
 
   const removeBeer = (id: string) => {
-    if (beerEntries.length <= 3) {
+    if (beerEntries.length <= 1) {
       toast({
         title: "Não é possível remover",
-        description: "É necessário manter pelo menos 3 cervejas para comparação",
+        description: "É necessário manter pelo menos 1 cerveja para comparação",
         variant: "destructive",
       });
       return;
@@ -96,27 +96,27 @@ const Index = () => {
   };
 
   const calculateResults = () => {
-    // Validate inputs
-    const invalidEntries = beerEntries.filter((entry) => {
+    // Filter valid entries
+    const validEntries = beerEntries.filter((entry) => {
       const volume =
         entry.volume === "custom"
           ? parseFloat(entry.customVolume || "0")
           : parseFloat(entry.volume);
       const price = parseFloat(entry.price);
-      return !volume || !price || isNaN(volume) || isNaN(price);
+      return volume > 0 && price > 0 && !isNaN(volume) && !isNaN(price);
     });
 
-    if (invalidEntries.length > 0) {
+    if (validEntries.length === 0) {
       toast({
         title: "Dados incompletos",
-        description: "Por favor, preencha todos os campos corretamente",
+        description: "Por favor, preencha os dados de pelo menos uma cerveja",
         variant: "destructive",
       });
       return;
     }
 
-    // Calculate price per liter for each entry
-    const calculations = beerEntries.map((entry) => {
+    // Calculate price per liter for each valid entry
+    const calculations = validEntries.map((entry) => {
       const volume =
         entry.volume === "custom"
           ? parseFloat(entry.customVolume || "0")
@@ -207,7 +207,7 @@ const Index = () => {
                     onChange={(e) => handlePriceChange(e.target.value, entry.id)}
                   />
                 </div>
-                {index >= 3 && (
+                {beerEntries.length > 1 && (
                   <Button
                     variant="ghost"
                     size="icon"
