@@ -118,18 +118,18 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto space-y-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Calculadora de Preço de Cerveja
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 py-4 px-4 sm:py-8 sm:px-6 lg:px-8 animate-fade-in">
+      <div className="max-w-3xl mx-auto space-y-6">
+        <div className="text-center space-y-2">
+          <h1 className="text-3xl sm:text-4xl font-bold text-amber-900 mb-2">
+            🍺 Calculadora de Preço
           </h1>
-          <p className="text-gray-600">
+          <p className="text-amber-700 text-sm sm:text-base">
             Compare os preços e encontre a melhor opção
           </p>
         </div>
 
-        <Card className="p-6 shadow-lg bg-white/80 backdrop-blur-sm">
+        <Card className="p-4 sm:p-6 shadow-lg bg-white/90 backdrop-blur-sm border-amber-100">
           <div className="space-y-6">
             {beerEntries.map((entry, index) => (
               <BeerEntryForm
@@ -144,16 +144,19 @@ const Index = () => {
               />
             ))}
 
-            <div className="flex justify-between items-center pt-4">
+            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 pt-4">
               <Button
                 variant="outline"
                 onClick={addNewBeer}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 w-full sm:w-auto border-amber-200 hover:bg-amber-50"
               >
                 <Plus className="h-4 w-4" />
                 Adicionar Cerveja
               </Button>
-              <Button onClick={calculateResults} className="bg-green-600 hover:bg-green-700">
+              <Button 
+                onClick={calculateResults} 
+                className="w-full sm:w-auto bg-amber-600 hover:bg-amber-700 text-white"
+              >
                 Calcular
               </Button>
             </div>
