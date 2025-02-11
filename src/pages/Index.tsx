@@ -112,16 +112,7 @@ const Index = () => {
   };
 
   const resetForm = () => {
-    setBeerEntries([
-      { id: "1", volume: "", price: "" },
-      { id: "2", volume: "", price: "" },
-      { id: "3", volume: "", price: "" },
-    ]);
     scrollToForm();
-    toast({
-      title: "Nova comparação",
-      description: "Os campos foram limpos para uma nova comparação",
-    });
   };
 
   const calculateResults = () => {
@@ -166,11 +157,6 @@ const Index = () => {
     setTimeout(() => {
       resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
-
-    toast({
-      title: "Cálculo realizado!",
-      description: "Confira os resultados abaixo",
-    });
   };
 
   const clearHistory = () => {
