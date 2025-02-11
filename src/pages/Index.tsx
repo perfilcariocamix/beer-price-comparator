@@ -1,5 +1,6 @@
+
 import { useState, useEffect, useRef } from "react";
-import { Plus } from "lucide-react";
+import { Plus, ArrowUpCircle, Beer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
@@ -29,6 +30,7 @@ interface ComparisonRecord {
 const Index = () => {
   const { toast } = useToast();
   const resultsRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
   const [beerEntries, setBeerEntries] = useState<BeerEntry[]>([
     { id: "1", volume: "", price: "" },
     { id: "2", volume: "", price: "" },
@@ -44,6 +46,10 @@ const Index = () => {
     }
   }, []);
 
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   const saveToHistory = (results: BeerResult[]) => {
     const newRecord: ComparisonRecord = {
       id: new Date().getTime().toString(),
@@ -51,7 +57,7 @@ const Index = () => {
       results
     };
 
-    const updatedHistory = [newRecord, ...history].slice(0, 10); // Mantém apenas os últimos 10 registros
+    const updatedHistory = [newRecord, ...history].slice(0, 10);
     setHistory(updatedHistory);
     localStorage.setItem("comparisonHistory", JSON.stringify(updatedHistory));
   };
@@ -105,6 +111,19 @@ const Index = () => {
     setBeerEntries((prev) => prev.filter((entry) => entry.id !== id));
   };
 
+  const resetForm = () => {
+    setBeerEntries([
+      { id: "1", volume: "", price: "" },
+      { id: "2", volume: "", price: "" },
+      { id: "3", volume: "", price: "" },
+    ]);
+    scrollToForm();
+    toast({
+      title: "Nova comparação",
+      description: "Os campos foram limpos para uma nova comparação",
+    });
+  };
+
   const calculateResults = () => {
     const validEntries = beerEntries.filter((entry) => {
       const volume =
@@ -144,12 +163,10 @@ const Index = () => {
     setResults(newResults);
     saveToHistory(newResults);
 
-    // Scroll suave para os resultados após o cálculo
     setTimeout(() => {
       resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
 
-    // Feedback visual do cálculo
     toast({
       title: "Cálculo realizado!",
       description: "Confira os resultados abaixo",
@@ -168,7 +185,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 py-4 px-4 sm:py-8 sm:px-6 lg:px-8 animate-fade-in">
       <div className="max-w-3xl mx-auto space-y-6">
-        <div className="text-center space-y-2">
+        <div ref={formRef} className="text-center space-y-2">
           <h1 className="text-3xl sm:text-4xl font-bold text-amber-900 mb-2">
             🍺 Calculadora de Preço
           </h1>
@@ -211,8 +228,20 @@ const Index = () => {
           </div>
         </Card>
 
-        <div ref={resultsRef}>
+        <div ref={resultsRef} className="space-y-4">
           <ResultsTable results={results} />
+          {results.length > 0 && (
+            <div className="flex justify-center">
+              <Button
+                onClick={resetForm}
+                variant="outline"
+                className="group flex items-center gap-2 border-amber-200 hover:bg-amber-50 transition-all duration-300 hover:scale-105"
+              >
+                <ArrowUpCircle className="h-5 w-5 text-amber-600 group-hover:animate-bounce" />
+                Nova Comparação
+              </Button>
+            </div>
+          )}
         </div>
         
         {history.length > 0 && (
@@ -224,3 +253,4 @@ const Index = () => {
 };
 
 export default Index;
+
