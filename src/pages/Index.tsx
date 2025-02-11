@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -28,6 +28,7 @@ interface ComparisonRecord {
 
 const Index = () => {
   const { toast } = useToast();
+  const resultsRef = useRef<HTMLDivElement>(null);
   const [beerEntries, setBeerEntries] = useState<BeerEntry[]>([
     { id: "1", volume: "", price: "" },
     { id: "2", volume: "", price: "" },
@@ -142,6 +143,17 @@ const Index = () => {
 
     setResults(newResults);
     saveToHistory(newResults);
+
+    // Scroll suave para os resultados após o cálculo
+    setTimeout(() => {
+      resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+
+    // Feedback visual do cálculo
+    toast({
+      title: "Cálculo realizado!",
+      description: "Confira os resultados abaixo",
+    });
   };
 
   const clearHistory = () => {
@@ -199,7 +211,9 @@ const Index = () => {
           </div>
         </Card>
 
-        <ResultsTable results={results} />
+        <div ref={resultsRef}>
+          <ResultsTable results={results} />
+        </div>
         
         {history.length > 0 && (
           <ComparisonHistory history={history} onClearHistory={clearHistory} />
