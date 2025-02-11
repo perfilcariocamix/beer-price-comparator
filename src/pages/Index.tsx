@@ -1,11 +1,11 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { BeerEntryForm } from "@/components/BeerEntryForm";
 import { ResultsTable } from "@/components/ResultsTable";
+import { ComparisonHistory } from "@/components/ComparisonHistory";
 
 interface BeerEntry {
   id: string;
@@ -20,6 +20,12 @@ interface BeerResult {
   isLowestPrice: boolean;
 }
 
+interface ComparisonRecord {
+  id: string;
+  date: string;
+  results: BeerResult[];
+}
+
 const Index = () => {
   const { toast } = useToast();
   const [beerEntries, setBeerEntries] = useState<BeerEntry[]>([
@@ -28,6 +34,26 @@ const Index = () => {
     { id: "3", volume: "", price: "" },
   ]);
   const [results, setResults] = useState<BeerResult[]>([]);
+  const [history, setHistory] = useState<ComparisonRecord[]>([]);
+
+  useEffect(() => {
+    const savedHistory = localStorage.getItem("comparisonHistory");
+    if (savedHistory) {
+      setHistory(JSON.parse(savedHistory));
+    }
+  }, []);
+
+  const saveToHistory = (results: BeerResult[]) => {
+    const newRecord: ComparisonRecord = {
+      id: new Date().getTime().toString(),
+      date: new Date().toLocaleString('pt-BR'),
+      results
+    };
+
+    const updatedHistory = [newRecord, ...history].slice(0, 10); // Mantém apenas os últimos 10 registros
+    setHistory(updatedHistory);
+    localStorage.setItem("comparisonHistory", JSON.stringify(updatedHistory));
+  };
 
   const handleVolumeChange = (value: string, id: string) => {
     setBeerEntries((prev) =>
@@ -109,12 +135,22 @@ const Index = () => {
 
     const lowestPrice = Math.min(...calculations.map((c) => c.pricePerLiter));
 
-    setResults(
-      calculations.map((calc) => ({
-        ...calc,
-        isLowestPrice: calc.pricePerLiter === lowestPrice,
-      }))
-    );
+    const newResults = calculations.map((calc) => ({
+      ...calc,
+      isLowestPrice: calc.pricePerLiter === lowestPrice,
+    }));
+
+    setResults(newResults);
+    saveToHistory(newResults);
+  };
+
+  const clearHistory = () => {
+    setHistory([]);
+    localStorage.removeItem("comparisonHistory");
+    toast({
+      title: "Histórico limpo",
+      description: "O histórico de comparações foi apagado com sucesso",
+    });
   };
 
   return (
@@ -164,6 +200,10 @@ const Index = () => {
         </Card>
 
         <ResultsTable results={results} />
+        
+        {history.length > 0 && (
+          <ComparisonHistory history={history} onClearHistory={clearHistory} />
+        )}
       </div>
     </div>
   );
