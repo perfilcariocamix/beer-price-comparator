@@ -37,7 +37,7 @@ export const ComparisonHistory = ({ history, onClearHistory }: ComparisonHistory
           className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
         >
           <Trash2 className="h-4 w-4 mr-2" />
-          Limpar Histórico
+          <span className="text-xs sm:text-sm">Limpar Histórico</span>
         </Button>
       </div>
 
@@ -47,24 +47,24 @@ export const ComparisonHistory = ({ history, onClearHistory }: ComparisonHistory
             key={record.id}
             className="p-3 bg-amber-50/50 dark:bg-amber-900/20 rounded-lg border border-amber-100 dark:border-amber-800/50 transition-all duration-300 hover:scale-[1.01] animate-fade-in"
           >
-            <div className="flex items-center gap-2 mb-2 text-sm text-amber-700 dark:text-amber-300">
+            <div className="flex items-center gap-2 mb-2 text-xs sm:text-sm text-amber-700 dark:text-amber-300">
               <Beer className="h-4 w-4" />
               <span>{record.date}</span>
             </div>
-            <div className="overflow-x-auto -mx-3">
-              <table className="w-full text-sm min-w-[640px]">
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs sm:text-sm">
                 <thead>
                   <tr>
-                    <th className="text-left py-1 px-2 text-amber-700 dark:text-amber-300 font-medium whitespace-nowrap">
+                    <th className="text-left py-1 px-2 text-amber-700 dark:text-amber-300 font-medium">
                       Cerveja
                     </th>
-                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium whitespace-nowrap">
+                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium">
                       Volume
                     </th>
-                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium whitespace-nowrap">
+                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium">
                       Preço
                     </th>
-                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium whitespace-nowrap">
+                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium">
                       Preço/L
                     </th>
                   </tr>
@@ -79,19 +79,19 @@ export const ComparisonHistory = ({ history, onClearHistory }: ComparisonHistory
                           : "text-amber-800 dark:text-amber-200"
                       }`}
                     >
-                      <td className="py-1 px-2 whitespace-nowrap">
+                      <td className="py-1 px-2">
                         Cerveja {index + 1}
                         {result.isLowestPrice && (
-                          <span className="ml-2 text-xs">🏆</span>
+                          <span className="ml-1">🏆</span>
                         )}
                       </td>
-                      <td className="text-right py-1 px-2 whitespace-nowrap">
+                      <td className="text-right py-1 px-2">
                         {result.volume}ml
                       </td>
-                      <td className="text-right py-1 px-2 whitespace-nowrap">
+                      <td className="text-right py-1 px-2">
                         R$ {result.price}
                       </td>
-                      <td className="text-right py-1 px-2 whitespace-nowrap">
+                      <td className="text-right py-1 px-2">
                         R$ {result.pricePerLiter.toFixed(2)}
                       </td>
                     </tr>
