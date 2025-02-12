@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 
 interface BeerResult {
   id: string;
+  volume: string;
+  price: string;
   pricePerLiter: number;
   isLowestPrice: boolean;
 }
@@ -57,6 +59,12 @@ export const ComparisonHistory = ({ history, onClearHistory }: ComparisonHistory
                       Cerveja
                     </th>
                     <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium">
+                      Volume
+                    </th>
+                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium">
+                      Preço
+                    </th>
+                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium">
                       Preço/L
                     </th>
                   </tr>
@@ -76,6 +84,12 @@ export const ComparisonHistory = ({ history, onClearHistory }: ComparisonHistory
                         {result.isLowestPrice && (
                           <span className="ml-2 text-xs">🏆</span>
                         )}
+                      </td>
+                      <td className="text-right py-1 px-2">
+                        {result.volume}ml
+                      </td>
+                      <td className="text-right py-1 px-2">
+                        R$ {result.price}
                       </td>
                       <td className="text-right py-1 px-2">
                         R$ {result.pricePerLiter.toFixed(2)}

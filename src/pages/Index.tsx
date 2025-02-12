@@ -1,12 +1,12 @@
-
 import { useState, useEffect, useRef } from "react";
-import { Plus, ArrowUpCircle, Beer } from "lucide-react";
+import { Plus, ArrowUpCircle, Beer, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { BeerEntryForm } from "@/components/BeerEntryForm";
 import { ResultsTable } from "@/components/ResultsTable";
 import { ComparisonHistory } from "@/components/ComparisonHistory";
+import { useTheme } from "next-themes";
 
 interface BeerEntry {
   id: string;
@@ -17,6 +17,8 @@ interface BeerEntry {
 
 interface BeerResult {
   id: string;
+  volume: string;
+  price: string;
   pricePerLiter: number;
   isLowestPrice: boolean;
 }
@@ -38,6 +40,7 @@ const Index = () => {
   ]);
   const [results, setResults] = useState<BeerResult[]>([]);
   const [history, setHistory] = useState<ComparisonRecord[]>([]);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const savedHistory = localStorage.getItem("comparisonHistory");
@@ -141,7 +144,12 @@ const Index = () => {
           : parseFloat(entry.volume);
       const price = parseFloat(entry.price);
       const pricePerLiter = price / (volume / 1000);
-      return { id: entry.id, pricePerLiter };
+      return { 
+        id: entry.id, 
+        volume: entry.volume === "custom" ? entry.customVolume! : entry.volume,
+        price: entry.price,
+        pricePerLiter 
+      };
     });
 
     const lowestPrice = Math.min(...calculations.map((c) => c.pricePerLiter));
@@ -171,6 +179,19 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 dark:from-amber-950 dark:to-orange-950 py-4 px-4 sm:py-8 sm:px-6 lg:px-8 animate-fade-in transition-colors duration-300">
       <div className="max-w-3xl mx-auto space-y-6">
+        <div className="flex justify-end">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="rounded-full w-10 h-10 bg-white/90 dark:bg-black/40 backdrop-blur-sm border border-amber-100 dark:border-amber-800 transition-all duration-300 hover:scale-110"
+          >
+            <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-amber-600" />
+            <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-amber-400" />
+            <span className="sr-only">Alternar tema</span>
+          </Button>
+        </div>
+
         <div ref={formRef} className="text-center space-y-2">
           <h1 className="text-3xl sm:text-4xl font-bold text-amber-900 dark:text-amber-100 mb-2 transition-colors">
             🍺 Calculadora de Preço
