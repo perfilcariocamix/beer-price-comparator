@@ -169,44 +169,48 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 py-4 px-4 sm:py-8 sm:px-6 lg:px-8 animate-fade-in">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 dark:from-amber-950 dark:to-orange-950 py-4 px-4 sm:py-8 sm:px-6 lg:px-8 animate-fade-in transition-colors duration-300">
       <div className="max-w-3xl mx-auto space-y-6">
         <div ref={formRef} className="text-center space-y-2">
-          <h1 className="text-3xl sm:text-4xl font-bold text-amber-900 mb-2">
+          <h1 className="text-3xl sm:text-4xl font-bold text-amber-900 dark:text-amber-100 mb-2 transition-colors">
             🍺 Calculadora de Preço
           </h1>
-          <p className="text-amber-700 text-sm sm:text-base">
+          <p className="text-amber-700 dark:text-amber-300 text-sm sm:text-base transition-colors">
             Compare os preços e encontre a melhor opção
           </p>
         </div>
 
-        <Card className="p-4 sm:p-6 shadow-lg bg-white/90 backdrop-blur-sm border-amber-100">
+        <Card className="p-4 sm:p-6 shadow-lg bg-white/90 dark:bg-black/40 backdrop-blur-sm border-amber-100 dark:border-amber-800 transition-all duration-300">
           <div className="space-y-6">
             {beerEntries.map((entry, index) => (
-              <BeerEntryForm
+              <div
                 key={entry.id}
-                entry={entry}
-                index={index}
-                showRemoveButton={beerEntries.length > 1}
-                onVolumeChange={handleVolumeChange}
-                onCustomVolumeChange={handleCustomVolumeChange}
-                onPriceChange={handlePriceChange}
-                onRemove={removeBeer}
-              />
+                className="animate-fade-in transform transition-all duration-300 hover:scale-[1.01]"
+              >
+                <BeerEntryForm
+                  entry={entry}
+                  index={index}
+                  showRemoveButton={beerEntries.length > 1}
+                  onVolumeChange={handleVolumeChange}
+                  onCustomVolumeChange={handleCustomVolumeChange}
+                  onPriceChange={handlePriceChange}
+                  onRemove={removeBeer}
+                />
+              </div>
             ))}
 
             <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 pt-4">
               <Button
                 variant="outline"
                 onClick={addNewBeer}
-                className="flex items-center gap-2 w-full sm:w-auto border-amber-200 hover:bg-amber-50"
+                className="flex items-center gap-2 w-full sm:w-auto border-amber-200 dark:border-amber-700 hover:bg-amber-50 dark:hover:bg-amber-900/50 dark:text-amber-100 transition-all duration-300"
               >
                 <Plus className="h-4 w-4" />
                 Adicionar Cerveja
               </Button>
               <Button 
                 onClick={calculateResults} 
-                className="w-full sm:w-auto bg-amber-600 hover:bg-amber-700 text-white"
+                className="w-full sm:w-auto bg-amber-600 hover:bg-amber-700 dark:bg-amber-700 dark:hover:bg-amber-600 text-white transition-all duration-300"
               >
                 Calcular
               </Button>
@@ -217,13 +221,13 @@ const Index = () => {
         <div ref={resultsRef} className="space-y-4">
           <ResultsTable results={results} />
           {results.length > 0 && (
-            <div className="flex justify-center">
+            <div className="flex justify-center animate-fade-in">
               <Button
                 onClick={resetForm}
                 variant="outline"
-                className="group flex items-center gap-2 border-amber-200 hover:bg-amber-50 transition-all duration-300 hover:scale-105"
+                className="group flex items-center gap-2 border-amber-200 dark:border-amber-700 hover:bg-amber-50 dark:hover:bg-amber-900/50 dark:text-amber-100 transition-all duration-300 hover:scale-105"
               >
-                <ArrowUpCircle className="h-5 w-5 text-amber-600 group-hover:animate-bounce" />
+                <ArrowUpCircle className="h-5 w-5 text-amber-600 dark:text-amber-400 group-hover:animate-bounce" />
                 Nova Comparação
               </Button>
             </div>
@@ -239,4 +243,3 @@ const Index = () => {
 };
 
 export default Index;
-
