@@ -51,20 +51,20 @@ export const ComparisonHistory = ({ history, onClearHistory }: ComparisonHistory
               <Beer className="h-4 w-4" />
               <span>{record.date}</span>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+            <div className="overflow-x-auto -mx-3">
+              <table className="w-full text-sm min-w-[640px]">
                 <thead>
                   <tr>
-                    <th className="text-left py-1 px-2 text-amber-700 dark:text-amber-300 font-medium">
+                    <th className="text-left py-1 px-2 text-amber-700 dark:text-amber-300 font-medium whitespace-nowrap">
                       Cerveja
                     </th>
-                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium">
+                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium whitespace-nowrap">
                       Volume
                     </th>
-                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium">
+                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium whitespace-nowrap">
                       Preço
                     </th>
-                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium">
+                    <th className="text-right py-1 px-2 text-amber-700 dark:text-amber-300 font-medium whitespace-nowrap">
                       Preço/L
                     </th>
                   </tr>
@@ -79,19 +79,19 @@ export const ComparisonHistory = ({ history, onClearHistory }: ComparisonHistory
                           : "text-amber-800 dark:text-amber-200"
                       }`}
                     >
-                      <td className="py-1 px-2">
+                      <td className="py-1 px-2 whitespace-nowrap">
                         Cerveja {index + 1}
                         {result.isLowestPrice && (
                           <span className="ml-2 text-xs">🏆</span>
                         )}
                       </td>
-                      <td className="text-right py-1 px-2">
+                      <td className="text-right py-1 px-2 whitespace-nowrap">
                         {result.volume}ml
                       </td>
-                      <td className="text-right py-1 px-2">
+                      <td className="text-right py-1 px-2 whitespace-nowrap">
                         R$ {result.price}
                       </td>
-                      <td className="text-right py-1 px-2">
+                      <td className="text-right py-1 px-2 whitespace-nowrap">
                         R$ {result.pricePerLiter.toFixed(2)}
                       </td>
                     </tr>
