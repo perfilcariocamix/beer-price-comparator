@@ -16,21 +16,27 @@ export const MobileNav = ({ isOpen, onToggle }: MobileNavProps) => {
 
   return (
     <>
-      <div className="lg:hidden fixed top-4 right-4 z-50">
+      {/* Botão do menu */}
+      <div className="lg:hidden fixed top-safe-top right-4 z-50">
         <Button
           variant="outline"
           size="icon"
           onClick={onToggle}
-          className="bg-white/90 dark:bg-black/40 backdrop-blur-sm border-amber-100 dark:border-amber-800"
+          className="bg-white/90 dark:bg-black/40 backdrop-blur-md border-amber-100 dark:border-amber-800 shadow-lg"
         >
           {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>
       </div>
 
+      {/* Menu móvel */}
       {isOpen && (
-        <div className="lg:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm">
-          <Card className="fixed inset-y-0 left-0 w-64 p-4 bg-white/90 dark:bg-black/90 border-r border-amber-100 dark:border-amber-800 animate-in slide-in-from-left">
-            <div className="space-y-6">
+        <div className="lg:hidden fixed inset-0 z-40">
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={onToggle}
+          />
+          <Card className="fixed inset-y-0 left-0 w-[85%] max-w-[320px] p-4 bg-white/90 dark:bg-black/90 border-r border-amber-100 dark:border-amber-800 animate-in slide-in-from-left">
+            <div className="space-y-6 safe-area-inset-top">
               <div className="px-3 py-2">
                 <h2 className="text-lg font-semibold text-amber-900 dark:text-amber-100">
                   Comparador de Preços
@@ -43,7 +49,7 @@ export const MobileNav = ({ isOpen, onToggle }: MobileNavProps) => {
                     to={item.path}
                     onClick={onToggle}
                     className={cn(
-                      "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
+                      "flex items-center gap-3 px-3 py-3 rounded-xl text-sm transition-all active:scale-95",
                       location.pathname === item.path
                         ? "bg-amber-100 dark:bg-amber-900 text-amber-900 dark:text-amber-100"
                         : "hover:bg-amber-50 dark:hover:bg-amber-900/50 text-amber-800 dark:text-amber-200"

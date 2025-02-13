@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -97,5 +98,21 @@
 
   body {
     @apply bg-background text-foreground;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Esconde a barra de rolagem no WebKit */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Suporte para safe areas do iPhone */
+  @supports (padding-top: env(safe-area-inset-top)) {
+    .safe-area-inset-top {
+      padding-top: env(safe-area-inset-top);
+    }
+    .safe-area-inset-bottom {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
   }
 }

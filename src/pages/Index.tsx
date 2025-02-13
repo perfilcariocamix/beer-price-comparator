@@ -8,7 +8,7 @@ const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 dark:from-amber-950 dark:to-orange-950">
+    <div className="min-h-[100dvh] bg-gradient-to-b from-amber-50 to-orange-50 dark:from-amber-950 dark:to-orange-950 overflow-x-hidden">
       {/* Menu móvel */}
       <MobileNav isOpen={isMenuOpen} onToggle={() => setIsMenuOpen(!isMenuOpen)} />
 
@@ -18,8 +18,8 @@ const Index = () => {
       </div>
 
       {/* Conteúdo principal */}
-      <main className="lg:pl-64 min-h-screen">
-        <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+      <main className="lg:pl-64 min-h-[100dvh]">
+        <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 pb-24">
           <Outlet />
         </div>
       </main>
