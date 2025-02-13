@@ -112,7 +112,7 @@ export const BeerEntryForm = ({
           <Button
             variant="ghost"
             size="icon"
-            className="absolute -right-2 -top-2 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-50"
+            className="absolute -right-2 -top-2 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity hover:bg-red-50"
             onClick={() => onRemove(entry.id)}
           >
             <Trash2 className="h-4 w-4 text-red-500" />
@@ -122,4 +122,3 @@ export const BeerEntryForm = ({
     </div>
   );
 };
-

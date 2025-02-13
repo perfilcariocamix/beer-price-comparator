@@ -186,7 +186,7 @@ const BeerCalculator = () => {
       </div>
 
       <Card className="p-4 sm:p-6 shadow-lg bg-white/90 dark:bg-black/40 backdrop-blur-sm border-amber-100 dark:border-amber-800 animate-fade-in transition-all duration-300">
-        <div className="space-y-6">
+        <div className="space-y-4">
           {beerEntries.map((entry, index) => (
             <BeerEntryForm
               key={entry.id}
@@ -200,7 +200,7 @@ const BeerCalculator = () => {
             />
           ))}
 
-          <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 pt-2">
             <Button
               variant="outline"
               onClick={addNewBeer}
