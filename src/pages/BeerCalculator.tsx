@@ -220,38 +220,34 @@ const BeerCalculator = () => {
           </p>
           
           <div className="flex justify-center gap-4 pt-2">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 text-sm">
-                    <span className="relative flex h-2 w-2 mr-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                    </span>
-                    Online
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 text-sm">
+                  <span className="relative flex h-2 w-2 mr-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                   </span>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Funciona offline após primeiro acesso</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+                  Online
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Funciona offline após primeiro acesso</p>
+              </TooltipContent>
+            </Tooltip>
 
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-sm">
-                    <span className="relative flex h-2 w-2 mr-2">
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-                    </span>
-                    PWA
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-sm">
+                  <span className="relative flex h-2 w-2 mr-2">
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
                   </span>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Instale o app na tela inicial</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+                  PWA
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Instale o app na tela inicial</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
         </div>
       </div>
