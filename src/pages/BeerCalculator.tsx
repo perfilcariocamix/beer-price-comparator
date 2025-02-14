@@ -1,5 +1,6 @@
+
 import { useState, useEffect, useRef } from "react";
-import { Plus, ArrowUpCircle, Beer } from "lucide-react";
+import { Plus, ArrowUpCircle, Beer, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
@@ -199,14 +200,22 @@ const BeerCalculator = () => {
                 className="h-6 w-6 p-0 hover:bg-transparent"
               >
                 <span className="sr-only">Informações</span>
-                <div className="h-1.5 w-1.5 rounded-full bg-amber-600/70 hover:bg-amber-600 dark:bg-amber-400/70 dark:hover:bg-amber-400 transition-colors" />
+                <Info className="h-4 w-4 text-amber-600/70 hover:text-amber-600 dark:text-amber-400/70 dark:hover:text-amber-400 transition-colors" />
               </Button>
             </HoverCardTrigger>
-            <HoverCardContent className="w-80 p-4 bg-white/95 dark:bg-black/95 backdrop-blur-sm border-amber-100 dark:border-amber-800">
+            <HoverCardContent className="w-80 p-4 space-y-3 bg-white/95 dark:bg-black/95 backdrop-blur-sm border-amber-100 dark:border-amber-800">
               <p className="text-sm text-amber-700 dark:text-amber-300">
                 Compare os preços e encontre a melhor opção para o seu bolso. 
-                Adicione as cervejas que deseja comparar, informando o volume e o preço de cada uma.
               </p>
+              <div className="space-y-2 text-sm text-amber-700/90 dark:text-amber-300/90">
+                <p>Como usar:</p>
+                <ul className="list-disc pl-4 space-y-1">
+                  <li>Selecione o volume da cerveja ou insira um volume personalizado</li>
+                  <li>Digite o preço de cada cerveja</li>
+                  <li>Adicione mais cervejas para comparar clicando em "Adicionar Cerveja"</li>
+                  <li>Clique em "Calcular" para ver qual é a opção mais econômica</li>
+                </ul>
+              </div>
             </HoverCardContent>
           </HoverCard>
         </div>
