@@ -7,11 +7,6 @@ import { BeerEntryForm } from "@/components/BeerEntryForm";
 import { ResultsTable } from "@/components/ResultsTable";
 import { ComparisonHistory } from "@/components/ComparisonHistory";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
@@ -186,68 +181,35 @@ const BeerCalculator = () => {
 
   return (
     <div className="space-y-6">
-      <div ref={formRef} className="relative py-8 mb-6">
-        {/* Fundo decorativo */}
-        <div className="absolute inset-0 bg-gradient-to-r from-amber-100/50 to-orange-100/50 dark:from-amber-900/30 dark:to-orange-900/30 transform -skew-y-2" />
+      <div ref={formRef} className="relative py-4 mb-4">
+        {/* Fundo decorativo com gradiente suave */}
+        <div className="absolute inset-0 bg-gradient-to-r from-amber-100/30 to-orange-100/30 dark:from-amber-900/20 dark:to-orange-900/20 transform -skew-y-1" />
         
-        {/* Conteúdo do cabeçalho */}
-        <div className="relative text-center space-y-4">
-          <div className="flex items-center justify-center gap-3 mb-2">
-            <Beer className="h-8 w-8 sm:h-10 sm:w-10 text-amber-600 dark:text-amber-400" />
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400">
+        {/* Cabeçalho mais compacto e moderno */}
+        <div className="relative">
+          <div className="flex items-center justify-center gap-2">
+            <Beer className="h-6 w-6 text-amber-600 dark:text-amber-400" />
+            <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400">
               Calculadora de Preço
             </h1>
             <HoverCard>
               <HoverCardTrigger asChild>
-                <Button variant="ghost" size="icon" className="hover:bg-transparent">
-                  <Info className="h-4 w-4 text-amber-600/70 hover:text-amber-600 dark:text-amber-400/70 dark:hover:text-amber-400 transition-colors" />
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="h-6 w-6 p-0 hover:bg-transparent"
+                >
+                  <span className="sr-only">Informações</span>
+                  <div className="h-1.5 w-1.5 rounded-full bg-amber-600/70 hover:bg-amber-600 dark:bg-amber-400/70 dark:hover:bg-amber-400 transition-colors" />
                 </Button>
               </HoverCardTrigger>
               <HoverCardContent className="w-80 p-4 bg-white/95 dark:bg-black/95 backdrop-blur-sm border-amber-100 dark:border-amber-800">
-                <div className="space-y-2">
-                  <h4 className="text-sm font-semibold text-amber-900 dark:text-amber-100">Como funciona?</h4>
-                  <p className="text-sm text-amber-700 dark:text-amber-300">
-                    Adicione as cervejas que deseja comparar, informando o volume e o preço de cada uma.
-                    O app calculará automaticamente o melhor custo-benefício baseado no preço por litro.
-                  </p>
-                </div>
+                <p className="text-sm text-amber-700 dark:text-amber-300">
+                  Compare os preços e encontre a melhor opção para o seu bolso. 
+                  Adicione as cervejas que deseja comparar, informando o volume e o preço de cada uma.
+                </p>
               </HoverCardContent>
             </HoverCard>
-          </div>
-          
-          <p className="text-amber-700 dark:text-amber-300 text-sm sm:text-base max-w-md mx-auto">
-            Compare os preços e encontre a melhor opção para o seu bolso
-          </p>
-          
-          <div className="flex justify-center gap-4 pt-2">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 text-sm">
-                  <span className="relative flex h-2 w-2 mr-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                  </span>
-                  Online
-                </span>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Funciona offline após primeiro acesso</p>
-              </TooltipContent>
-            </Tooltip>
-
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-sm">
-                  <span className="relative flex h-2 w-2 mr-2">
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-                  </span>
-                  PWA
-                </span>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Instale o app na tela inicial</p>
-              </TooltipContent>
-            </Tooltip>
           </div>
         </div>
       </div>
