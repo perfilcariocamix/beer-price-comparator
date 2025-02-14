@@ -22,13 +22,19 @@ const queryClient = new QueryClient({
   },
 });
 
+const TooltipRoot = ({ children }: { children: React.ReactNode }) => (
+  <TooltipProvider>
+    {children}
+  </TooltipProvider>
+);
+
 const App = () => (
   <BrowserRouter>
     <QueryClientProvider client={queryClient}>
-      <Suspense fallback={<LoadingSpinner />}>
-        <Toaster />
-        <Sonner />
-        <TooltipProvider>
+      <TooltipRoot>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Toaster />
+          <Sonner />
           <Routes>
             <Route path="/" element={<Index />}>
               <Route index element={<BeerCalculator />} />
@@ -38,8 +44,8 @@ const App = () => (
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </TooltipProvider>
-      </Suspense>
+        </Suspense>
+      </TooltipRoot>
     </QueryClientProvider>
   </BrowserRouter>
 );
