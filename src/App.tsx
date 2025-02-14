@@ -1,4 +1,5 @@
 
+import React from "react";
 import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -22,28 +23,30 @@ const queryClient = new QueryClient({
   },
 });
 
-const App = () => (
-  <BrowserRouter>
-    <QueryClientProvider client={queryClient}>
-      <Suspense fallback={<LoadingSpinner />}>
-        <Toaster />
-        <Sonner />
-        <Routes>
-          <Route path="/" element={
-            <TooltipProvider>
-              <Index />
-            </TooltipProvider>
-          }>
-            <Route index element={<BeerCalculator />} />
-            <Route path="blog" element={<Blog />} />
-            <Route path="drinks" element={<Blog />} />
-            <Route path="vinhos" element={<Blog />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
-    </QueryClientProvider>
-  </BrowserRouter>
-);
+const Root = () => {
+  return (
+    <TooltipProvider>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Toaster />
+            <Sonner />
+            <Routes>
+              <Route path="/" element={<Index />}>
+                <Route index element={<BeerCalculator />} />
+                <Route path="blog" element={<Blog />} />
+                <Route path="drinks" element={<Blog />} />
+                <Route path="vinhos" element={<Blog />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </TooltipProvider>
+  );
+};
+
+const App = () => <Root />;
 
 export default App;
