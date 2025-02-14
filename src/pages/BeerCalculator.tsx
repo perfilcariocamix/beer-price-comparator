@@ -1,5 +1,6 @@
+
 import { useState, useEffect, useRef } from "react";
-import { Plus, ArrowUpCircle, Beer, Info } from "lucide-react";
+import { Plus, ArrowUpCircle, Beer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
@@ -11,7 +12,6 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 interface BeerEntry {
   id: string;
@@ -231,35 +231,21 @@ const BeerCalculator = () => {
           ))}
 
           <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 pt-2">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  onClick={addNewBeer}
-                  className="flex items-center gap-2 w-full sm:w-auto border-amber-200 dark:border-amber-700 hover:bg-amber-50 dark:hover:bg-amber-900/50 dark:text-amber-100 transition-all duration-300"
-                >
-                  <Plus className="h-4 w-4" />
-                  Adicionar Cerveja
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Compare quantas cervejas quiser</p>
-              </TooltipContent>
-            </Tooltip>
+            <Button
+              variant="outline"
+              onClick={addNewBeer}
+              className="flex items-center gap-2 w-full sm:w-auto border-amber-200 dark:border-amber-700 hover:bg-amber-50 dark:hover:bg-amber-900/50 dark:text-amber-100 transition-all duration-300"
+            >
+              <Plus className="h-4 w-4" />
+              Adicionar Cerveja
+            </Button>
 
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button 
-                  onClick={calculateResults} 
-                  className="w-full sm:w-auto bg-amber-600 hover:bg-amber-700 dark:bg-amber-700 dark:hover:bg-amber-600 text-white transition-all duration-300"
-                >
-                  Calcular
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Encontre a melhor opção</p>
-              </TooltipContent>
-            </Tooltip>
+            <Button 
+              onClick={calculateResults} 
+              className="w-full sm:w-auto bg-amber-600 hover:bg-amber-700 dark:bg-amber-700 dark:hover:bg-amber-600 text-white transition-all duration-300"
+            >
+              Calcular
+            </Button>
           </div>
         </div>
       </Card>
