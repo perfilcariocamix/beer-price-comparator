@@ -25,10 +25,10 @@ const queryClient = new QueryClient({
 
 const Root = () => {
   return (
-    <TooltipProvider>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Suspense fallback={<LoadingSpinner />}>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Suspense fallback={<LoadingSpinner />}>
+          <TooltipProvider delayDuration={0}>
             <Toaster />
             <Sonner />
             <Routes>
@@ -40,10 +40,10 @@ const Root = () => {
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </Suspense>
-        </BrowserRouter>
-      </QueryClientProvider>
-    </TooltipProvider>
+          </TooltipProvider>
+        </Suspense>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 };
 
