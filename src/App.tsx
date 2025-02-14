@@ -6,7 +6,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
-import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 // Lazy load components
 const Index = lazy(() => import("./pages/Index"));
@@ -25,7 +25,7 @@ const queryClient = new QueryClient({
 
 const Root = () => {
   return (
-    <TooltipPrimitive.Provider>
+    <TooltipProvider>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Suspense fallback={<LoadingSpinner />}>
@@ -43,7 +43,7 @@ const Root = () => {
           </Suspense>
         </BrowserRouter>
       </QueryClientProvider>
-    </TooltipPrimitive.Provider>
+    </TooltipProvider>
   );
 };
 
