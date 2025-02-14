@@ -6,7 +6,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
 // Lazy load components
 const Index = lazy(() => import("./pages/Index"));
@@ -25,10 +25,10 @@ const queryClient = new QueryClient({
 
 const Root = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Suspense fallback={<LoadingSpinner />}>
-          <TooltipProvider delayDuration={0}>
+    <TooltipPrimitive.Provider delayDuration={0}>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Suspense fallback={<LoadingSpinner />}>
             <Toaster />
             <Sonner />
             <Routes>
@@ -40,10 +40,10 @@ const Root = () => {
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </TooltipProvider>
-        </Suspense>
-      </BrowserRouter>
-    </QueryClientProvider>
+          </Suspense>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </TooltipPrimitive.Provider>
   );
 };
 
