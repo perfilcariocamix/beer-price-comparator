@@ -23,12 +23,12 @@ const queryClient = new QueryClient({
 });
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider delayDuration={0}>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Suspense fallback={<LoadingSpinner />}>
+  <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Toaster />
+        <Sonner />
+        <TooltipProvider>
           <Routes>
             <Route path="/" element={<Index />}>
               <Route index element={<BeerCalculator />} />
@@ -38,10 +38,10 @@ const App = () => (
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </Suspense>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+        </TooltipProvider>
+      </Suspense>
+    </QueryClientProvider>
+  </BrowserRouter>
 );
 
 export default App;
