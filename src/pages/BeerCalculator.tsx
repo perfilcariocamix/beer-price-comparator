@@ -149,7 +149,7 @@ const BeerCalculator = () => {
       const price = parseFloat(entry.price);
       const pricePerLiter = price / (volume / 1000);
       return { 
-        id: entry.id, 
+        id: entry.id, // Mantém o ID original da cerveja
         volume: entry.volume === "custom" ? entry.customVolume! : entry.volume,
         price: entry.price,
         pricePerLiter 
