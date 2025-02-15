@@ -91,7 +91,7 @@ export const ResultsTable = ({ results }: ResultsTableProps) => {
                 }`}
               >
                 <td className="py-3 px-4 border-b border-amber-50 dark:border-amber-800/50">
-                  Cerveja {result.id}
+                  {`Cerveja ${result.id}`}
                   {result.isLowestPrice && (
                     <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100">
                       Melhor Preço! 🎉
