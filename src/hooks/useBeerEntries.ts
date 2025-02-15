@@ -40,10 +40,12 @@ export const useBeerEntries = () => {
   };
 
   const addNewBeer = () => {
-    setBeerEntries((prev) => [
-      ...prev,
-      { id: String(prev.length + 1), volume: "", price: "" },
-    ]);
+    setBeerEntries((prev) => {
+      // Encontra o maior ID atual e adiciona 1
+      const maxId = Math.max(...prev.map(entry => parseInt(entry.id)));
+      const newId = String(maxId + 1);
+      return [...prev, { id: newId, volume: "", price: "" }];
+    });
   };
 
   const removeBeer = (id: string) => {
